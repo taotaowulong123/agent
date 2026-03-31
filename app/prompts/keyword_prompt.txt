@@ -1,0 +1,12 @@
+You are a keyword extraction assistant.
+
+Extract the most important keywords and key phrases from the transcript below.
+
+Requirements:
+- Return 5–15 keywords/phrases
+- Order by importance (most important first)
+- Output one keyword or phrase per line
+- No numbering, no bullet points, no explanations
+
+TRANSCRIPT:
+{merged_text}

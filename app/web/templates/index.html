@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Media AI Agent</title>
+  <link rel="stylesheet" href="/static/style.css" />
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h1>✦ Media AI Agent</h1>
+      <p class="subtitle">上传音频或视频，自动识别文字、摘要与关键词</p>
+    </div>
+
+    <!-- Upload area -->
+    <div class="upload-box" id="uploadBox">
+      <input type="file" id="fileInput" accept="video/*,audio/*" hidden />
+      <div class="upload-hint" id="uploadHint">
+        <span class="upload-icon">🎬</span>
+        <span>点击选择或拖拽文件到此处</span>
+        <small>支持 mp4 / mov / avi / mkv / mp3 / wav / m4a 等</small>
+      </div>
+      <div class="upload-progress" id="uploadProgress" hidden>
+        <span id="uploadFilename"></span>
+        <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+      </div>
+    </div>
+    <button class="btn-primary" id="uploadBtn" disabled>开始处理</button>
+
+    <!-- Job list -->
+    <section id="jobSection" hidden>
+      <h2>处理记录</h2>
+      <div id="jobList"></div>
+    </section>
+  </div>
+
+  <!-- Result modal -->
+  <div class="modal-overlay" id="modalOverlay" hidden>
+    <div class="modal">
+      <button class="modal-close" id="modalClose">&times;</button>
+      <h2 id="modalTitle"></h2>
+      <div class="modal-body" id="modalBody"></div>
+    </div>
+  </div>
+
+  <script src="/static/app.js"></script>
+</body>
+</html>
