@@ -229,6 +229,31 @@ body {
   border-color: var(--primary);
 }
 
+/* Delete button */
+.btn-delete {
+  background: transparent;
+  color: var(--error);
+  border: 1px solid rgba(239,68,68,0.3);
+  padding: 7px 16px;
+  border-radius: 8px;
+  font-size: .85rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background .2s, border-color .2s;
+}
+.btn-delete:hover {
+  background: rgba(239,68,68,0.15);
+  border-color: var(--error);
+}
+
+/* Job actions */
+.job-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+}
+
 /* Audio player */
 audio {
   width: 100%;

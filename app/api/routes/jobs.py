@@ -1,4 +1,4 @@
-"""Jobs route: poll job status and results."""
+"""Jobs route: poll job status, results, and delete."""
 from typing import List
 
 from fastapi import APIRouter, HTTPException
@@ -20,3 +20,11 @@ def get_job(job_id: str):
     if not job:
         raise HTTPException(status_code=404, detail="Job not found")
     return job
+
+
+@router.delete("/jobs/{job_id}")
+def delete_job(job_id: str):
+    ok = result_service.delete_job(job_id)
+    if not ok:
+        raise HTTPException(status_code=404, detail="Job not found")
+    return {"detail": "deleted"}

@@ -122,13 +122,17 @@ function addOrUpdateCard(job) {
   const viewBtn = job.status === 'done'
     ? `<button class="btn-view" onclick="openModal('${job.job_id}')">查看结果</button>`
     : '';
+  const deleteBtn = `<button class="btn-delete" onclick="deleteJob('${job.job_id}')">删除</button>`;
   card.innerHTML = `
     <div class="job-info">
       <div class="job-name">${escHtml(job.filename)}</div>
       <div class="job-meta">${job.media_type} &nbsp;|&nbsp; ${job.job_id.slice(0, 8)}</div>
     </div>
-    <span class="${badgeClass}">${statusLabel}</span>
-    ${viewBtn}
+    <div class="job-actions">
+      <span class="${badgeClass}">${statusLabel}</span>
+      ${viewBtn}
+      ${deleteBtn}
+    </div>
   `;
 }
 
@@ -188,6 +192,27 @@ function escHtml(str) {
     .replace(/</g, '&lt;')
     .replace(/>/g, '&gt;')
     .replace(/"/g, '&quot;');
+}
+
+/* ── delete job ── */
+async function deleteJob(jobId) {
+  if (!confirm('确认删除该任务及所有相关文件？')) return;
+  try {
+    const r = await fetch('/api/jobs/' + jobId, { method: 'DELETE' });
+    if (!r.ok) { alert('删除失败'); return; }
+    // Stop polling if active
+    if (pollingTimers[jobId]) {
+      clearInterval(pollingTimers[jobId]);
+      delete pollingTimers[jobId];
+    }
+    // Remove card from DOM
+    const card = document.getElementById('card-' + jobId);
+    if (card) card.remove();
+    // Hide section if no more jobs
+    if (jobList.children.length === 0) jobSection.hidden = true;
+  } catch (e) {
+    alert('删除失败: ' + e.message);
+  }
 }
 
 /* ── load existing jobs on page load ── */
